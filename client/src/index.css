@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "Handjet";
+  src: url("/src/assets/Handjet-Regular.ttf");
+  font-weight: 400;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  font-family: "Handjet";
+  font-size: 36px;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  color: black;
+  border: 0;
+  outline: 0;
+  background: none;
+  cursor: pointer;
+}
+
+button:focus-within::before {
+  content: "- ";
+}
+
+ul,
+ol,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::-moz-inner-spin-button,
+input::-moz-outer-spin-button {
+  -moz-appearance: none;
+  margin: 0;
+}
