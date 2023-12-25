@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { MyButton } from "../components/MyButton";
 import { SocketContext } from "../SocketProvider";
 import { MoveListItem } from "../components/MoveListItem";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../router";
 import { useArrowKeys } from "../hooks/useArrowKeys";
 
@@ -10,6 +10,9 @@ export function MainGameScreen() {
   const smallerFont = { fontSize: "0.75rem" };
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { mode } = state;
+  const secretLength = mode === "long" ? 4 : 3;
   const [fieldRef] = useArrowKeys(1);
   const [mySecret, setMySecret] = useState("");
   const [attempt, setAttempt] = useState("");
@@ -29,7 +32,7 @@ export function MainGameScreen() {
     const handleOpponentTurn = () => setIsMyTurn(false);
     const handleYourMoves = (moveList) => setMyMovesList(moveList);
     const handleOpponentMoves = (moveList) => setOpMovesList(moveList);
-    const handleNotFound = () => setError("Введите 4 разных цифры");
+    const handleNotFound = () => setError(`Введите ${secretLength} разных цифры`);
     const handleYouWin = () => navigate(ROUTES.RESULT, { state: { won: true } });
     const handleYouLose = () => navigate(ROUTES.RESULT, { state: { won: false } });
     const handleDraw = () => navigate(ROUTES.RESULT, { state: {} });
@@ -69,7 +72,7 @@ export function MainGameScreen() {
 
   const handleChange = (e) => {
     setError("");
-    if (e.target.value.length > 4) return;
+    if (e.target.value.length > secretLength) return;
     setAttempt(e.target.value);
   };
 

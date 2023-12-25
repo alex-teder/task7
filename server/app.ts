@@ -61,8 +61,8 @@ io.on("connection", (socket: Player) => {
       return;
     }
     room.player2 = socket;
-    room.player1.emit("gameReady");
-    room.player2.emit("gameReady");
+    room.player1.emit("gameReady", room.mode);
+    room.player2.emit("gameReady", room.mode);
   });
 
   socket.on("setSecret", (secret: string) => {

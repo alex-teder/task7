@@ -19,7 +19,7 @@ export function JoinGameScreen() {
 
   useEffect(() => {
     const handleNotFound = () => setError("Игра не найдена");
-    const handleGameReady = () => navigate(ROUTES.ENTER_SECRET);
+    const handleGameReady = (mode) => navigate(ROUTES.ENTER_SECRET, { state: { mode } });
 
     socket.on("notFound", handleNotFound);
     socket.on("gameReady", handleGameReady);

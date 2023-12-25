@@ -2,11 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { MyButton } from "../components/MyButton";
 import { useArrowKeys } from "../hooks/useArrowKeys";
 import { SocketContext } from "../SocketProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../router";
 
 export function EnterSecretScreen() {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { mode } = state;
+  const secretLength = mode === "long" ? 4 : 3;
   const [isAwaiting, setIsAwaiting] = useState(false);
   const [opt1, opt2] = useArrowKeys(2);
   const socket = useContext(SocketContext);
@@ -15,7 +18,7 @@ export function EnterSecretScreen() {
 
   const handleChange = (e) => {
     setError("");
-    if (e.target.value.length > 4) return;
+    if (e.target.value.length > secretLength) return;
     setSecret(e.target.value);
   };
 
@@ -28,9 +31,9 @@ export function EnterSecretScreen() {
   useEffect(() => {
     const handleNotFound = () => {
       setIsAwaiting(false);
-      setError("Введите 4 разных цифры");
+      setError(`Введите ${secretLength} разных цифры`);
     };
-    const handleStart = () => navigate(ROUTES.GAME);
+    const handleStart = () => navigate(ROUTES.GAME, { state: { mode } });
     const handleConnectionError = () => navigate(ROUTES.CONNECTION_ERROR);
 
     socket.on("notFound", handleNotFound);

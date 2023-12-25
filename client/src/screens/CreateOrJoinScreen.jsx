@@ -22,7 +22,7 @@ export function CreateOrJoinScreen() {
   return (
     <>
       <h1>Быки и коровы</h1>
-      <MyButton ref={opt1} onClick={() => navigate(ROUTES.CREATE)}>
+      <MyButton ref={opt1} onClick={() => navigate(ROUTES.SELECT_MODE)}>
         Создать игру
       </MyButton>
       <MyButton ref={opt2} onClick={() => navigate(ROUTES.JOIN)}>

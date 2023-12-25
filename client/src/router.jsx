@@ -9,12 +9,14 @@ import { MainGameScreen } from "./screens/MainGameScreen";
 import { ResultScreen } from "./screens/ResultScreen";
 import { ConnectionErrorScreen } from "./screens/ConnectionErrorScreen";
 import { HelpScreen } from "./screens/HelpScreen";
+import { SelectModeScreen } from "./screens/SelectModeScreen";
 
 export const ROUTES = {
   ROOT: "/",
   LOADING: "/loading",
   MENU: "/menu",
   HELP: "/help",
+  SELECT_MODE: "/select-mode",
   CREATE: "/create",
   JOIN: "/join",
   ENTER_SECRET: "/start",
@@ -40,6 +42,10 @@ export const router = createHashRouter([
   {
     path: ROUTES.MENU,
     element: <CreateOrJoinScreen />,
+  },
+  {
+    path: ROUTES.SELECT_MODE,
+    element: <SelectModeScreen />,
   },
   {
     path: ROUTES.CREATE,
