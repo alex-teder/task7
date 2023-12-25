@@ -7,6 +7,7 @@ import { initGame } from "./game";
 
 const app = express();
 app.use(cors());
+app.use(express.static("../client/dist/"));
 const PORT = 3333;
 const server = app.listen(PORT, () => {
   console.clear();
