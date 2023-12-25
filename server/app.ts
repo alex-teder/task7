@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
-import { Room, Player } from "./types";
+import { Room, Player, GameMode } from "./types";
 import { allCharsNumeric, allCharsUnique, generateId } from "./utils";
 import { initGame } from "./game";
 
@@ -27,12 +27,17 @@ io.on("connection", (socket: Player) => {
 
   socket.on("setName", () => {});
 
-  socket.on("createGame", () => {
+  socket.on("createGame", (mode: GameMode) => {
     const roomEntries = Object.entries(rooms).filter(([key, value]) => value.player1 === socket);
     for (const [id] of roomEntries) {
       delete rooms[id];
     }
-    const room: Room = { id: generateId(), player1: socket, cleanupFn: () => {} };
+    const room: Room = {
+      id: generateId(mode === "long" ? 6 : 5),
+      mode,
+      player1: socket,
+      cleanupFn: () => {},
+    };
     rooms[room.id] = room;
     socket.emit("roomId", room.id);
   });
@@ -61,15 +66,16 @@ io.on("connection", (socket: Player) => {
   });
 
   socket.on("setSecret", (secret: string) => {
-    if (!allCharsNumeric(secret) || !allCharsUnique(secret) || secret.length !== 4) {
-      socket.emit("notFound");
-      return;
-    }
     const roomEntry = Object.entries(rooms).find(
       ([key, value]) => value.player1 === socket || value.player2 === socket
     );
     if (!roomEntry) return;
     const room = roomEntry[1];
+    const secretLength = room.mode === "long" ? 4 : 3;
+    if (!allCharsNumeric(secret) || !allCharsUnique(secret) || secret.length !== secretLength) {
+      socket.emit("notFound");
+      return;
+    }
     if (socket === room.player1) {
       room.secret1 = secret;
     } else {

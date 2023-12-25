@@ -4,6 +4,7 @@ import { allCharsNumeric, allCharsUnique } from "./utils";
 export function initGame(room: Room) {
   const { player1, player2, secret1, secret2 } = room;
   if (!player2 || !secret1 || !secret2) throw new Error();
+  const secretLength = room.mode === "long" ? 4 : 3;
   const player1Moves: GuessResponse[] = [];
   const player2Moves: GuessResponse[] = [];
   let currentPlayer: Player = player1;
@@ -29,7 +30,7 @@ export function initGame(room: Room) {
   };
 
   const handleMove = (attempt: string) => {
-    if (attempt.length !== 4 || !allCharsNumeric(attempt) || !allCharsUnique(attempt)) {
+    if (attempt.length !== secretLength || !allCharsNumeric(attempt) || !allCharsUnique(attempt)) {
       return currentPlayer.emit("notFound");
     }
 
@@ -46,7 +47,7 @@ export function initGame(room: Room) {
     player1.emit("game:opponentMoves", player2Moves);
     player2.emit("game:opponentMoves", player1Moves);
 
-    if (result.bulls === 4) {
+    if (result.bulls === secretLength) {
       return handleFinish(currentPlayer);
     }
 
