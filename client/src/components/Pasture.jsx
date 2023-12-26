@@ -3,7 +3,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { Cow } from "./Cow";
 import { Bull } from "./Bull";
 import { useContext, useEffect, useState } from "react";
-import { AnimalsContext } from "../SocketProvider";
+import { AnimalsContext } from "../AnimalProvider";
 
 export const Pasture = () => {
   return (

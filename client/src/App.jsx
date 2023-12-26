@@ -1,7 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { Pasture } from "./components/Pasture";
 import { MainTextPanel } from "./components/MainTextPanel";
-import { AnimalsProvider, SocketProvider } from "./SocketProvider";
+import { SocketProvider } from "./SocketProvider";
+import { AnimalsProvider } from "./AnimalProvider";
 
 function App() {
   return (
