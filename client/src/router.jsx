@@ -1,5 +1,4 @@
 import { createHashRouter, redirect } from "react-router-dom";
-import { EnterNameScreen } from "./screens/EnterNameScreen";
 import { LoadingScreen } from "./screens/LoadingScreen";
 import { CreateOrJoinScreen } from "./screens/CreateOrJoinScreen";
 import { WaitingForOpponentScreen } from "./screens/WaitingForOpponentScreen";
@@ -29,7 +28,6 @@ export const router = createHashRouter([
   {
     path: ROUTES.ROOT,
     loader: () => redirect(ROUTES.MENU),
-    // element: <EnterNameScreen />,
   },
   {
     path: ROUTES.HELP,

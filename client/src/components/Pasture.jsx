@@ -12,14 +12,6 @@ export const Pasture = () => {
       <ambientLight intensity={0.3} />
       {/* <OrbitControls /> */}
       {/* <ContactShadows blur={5} opacity={0.5} /> */}
-      {/* <Cow position={new THREE.Vector3(2, 0, 3)} />
-      <Cow position={new THREE.Vector3(-5, 0, 5)} />
-      <Cow position={new THREE.Vector3(2, 0, 15)} />
-      <Cow position={new THREE.Vector3(-20, 0, 10)} />
-      <Bull position={new THREE.Vector3(-17, 0, 1)} />
-      <Bull position={new THREE.Vector3(10, 0, 8)} />
-      <Bull position={new THREE.Vector3(-2, 0, -6)} />
-      <Bull position={new THREE.Vector3(-10, 0, 12)} /> */}
       <Animals />
     </>
   );
